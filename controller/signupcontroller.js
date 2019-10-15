@@ -1,7 +1,5 @@
 
 const UserData = require('../model/signup');
-var bcrypt = require('bcryptjs');
-
 
 exports.signup=function(req,res){
     var User=new UserData(req.body);
@@ -18,6 +16,6 @@ exports.getallsignin = function(req, res) {
         res.send(err);
         res.json(task);
     });
-  };
+};
 
 
