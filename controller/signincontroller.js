@@ -3,7 +3,6 @@ const UserData = require('../model/signup');
 
 exports.userSignin = function(req,res){
   UserData.find({email: req.body.email}, function(err, data){
-    console.log(req.body)
     if(data != null && data != ''){
       if(req.body.password == data[0].password){
           res.status(200).json({

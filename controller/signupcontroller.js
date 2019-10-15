@@ -3,7 +3,6 @@ const UserData = require('../model/signup');
 
 exports.signup=function(req,res){
     var User=new UserData(req.body);
-    console.log(req.body)
     User.save(function(err,data){
         if(err)
         res.send(err);
