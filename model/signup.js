@@ -43,7 +43,8 @@ var UserSchema = new Schema({
       required: [true, 'User phone number required']
   },
   gender: {
-    type: String
+    type: String,
+    enum: [male,female,others],
   } 
 });
 
