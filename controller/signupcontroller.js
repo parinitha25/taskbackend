@@ -10,10 +10,10 @@ exports.signup=function(req,res){
     })
 }
 exports.getallsignin = function(req, res) {
-    UserData.find({}, function(err, task) {
+    UserData.find({}, function(err, data) {
       if (err)
         res.send(err);
-        res.json(task);
+        res.json(data);
     });
 };
 
