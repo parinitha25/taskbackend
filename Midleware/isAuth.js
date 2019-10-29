@@ -34,10 +34,8 @@ const RevokedCallback = function (req, res) {
   debugger
   BlacklistData.find({ token: req.headers.authorization }, function (err, data) {
     if (err) {
-      return res.status(401).json({
-        
+      return res.status(401).json({   
       })
-      // res.json(data); 
     }
     else if(data.length>0) {
       return res.status(401).json({
