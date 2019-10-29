@@ -8,7 +8,7 @@ var UserSchema = new Schema({
     type:String,
     validate: {
         validator: function(v) {
-          return /^[A-Za-z]{4,8}$/.test(v);
+          return /^[A-Za-z]{4,10}$/.test(v);
         },
         message: props => `${props.value} is not a valid username!`
       },
@@ -47,7 +47,7 @@ var UserSchema = new Schema({
   gender: {
     type: String,
     enum: ['male','female','others']
-  } 
+  },
 });
 
 UserSchema.pre('save', function(next) {

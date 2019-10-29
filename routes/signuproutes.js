@@ -6,11 +6,16 @@ const signupController = require('../controller/signupcontroller');
 
 const signinController = require('../controller/signincontroller');
 
+var { validate, RevokedCallback }=require('../Midleware/isAuth')
+
 
 router.post('/signup',signupController.signup);
 
-router.get('/signup',signupController.getallsignin);
+router.get('/signin', validate, RevokedCallback,signinController.getAllSignin);
 
 router.post('/signin',signinController.userSignin);
+
+router.delete('/logout', signinController.logout);
+
 
 module.exports=router;

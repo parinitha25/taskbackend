@@ -4,7 +4,9 @@ var mongoose = require('mongoose');
 const cors = require('cors');
 
 const userRoutes=require('./routes/signuproutes');
-
+ 
+const {validate}=require('./Midleware/isAuth')
+const {jwt} = require('./Midleware/isAuth');
 
 var app = express();
 
@@ -14,6 +16,9 @@ app.use(bodyParser.json());
 
 app.use(cors());
 app.options('*', cors());
+
+// app.use(validate);
+app.use(jwt());
 
 
 app.use('/',userRoutes);
@@ -28,3 +33,7 @@ app.set('port', (process.env.port || 8000));
 app.listen(app.get('port'), function(){
     console.log("server started on port" + app.get('port'));
 })
+
+
+
+ 
