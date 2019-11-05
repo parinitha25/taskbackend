@@ -3,10 +3,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 const cors = require('cors');
 
-const userRoutes=require('./routes/signuproutes');
- 
-const {validate}=require('./Midleware/isAuth')
-const {jwt} = require('./Midleware/isAuth');
+const userRoutes=require('./routes/userroutes');
+
 
 var app = express();
 
@@ -17,11 +15,12 @@ app.use(bodyParser.json());
 app.use(cors());
 app.options('*', cors());
 
-// app.use(validate);
-app.use(jwt());
+
 
 
 app.use('/',userRoutes);
+
+
 
 
 mongoose.Promise = global.Promise;

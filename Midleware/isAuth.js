@@ -1,8 +1,6 @@
 const Jwt = require('jsonwebtoken');
 const BlacklistData = require('../model/blacklist');
 var mongoose = require('mongoose');
-const ejwt = require('express-jwt');
-const expressJwt = require('express-jwt');
 
 
 const validate = function (req, res, next) {
@@ -33,31 +31,23 @@ const validate = function (req, res, next) {
 const RevokedCallback = function (req, res) {
   debugger
   BlacklistData.find({ token: req.headers.authorization }, function (err, data) {
-    if (err) {
-      return res.status(401).json({   
+    if (!data) {
+      return res.status(200).json({ 
+        messagel: 'User logged in sucessfully'  
       })
     }
     else if(data.length>0) {
       return res.status(401).json({
-        error: 'User logged out already'
+        errorl: 'User logged out already'
       });
     } 
     else {
-      return res.status(200).json({
-        message:'login sucessfully'
+      return res.status(401).json({
+        errorl:'User logged out sucessfully'
       }); 
      
     }
  })
 
 }
-
-function jwt() {
-    return expressJwt({secret: 'secret' }).unless({
-        path: [
-            // public routes that don't require authentication
-            '/signup','/signin','/logout'
-        ]
-    });
-}
-module.exports = { validate, RevokedCallback, jwt };
+module.exports = { validate, RevokedCallback };
