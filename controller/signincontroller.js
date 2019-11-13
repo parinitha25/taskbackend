@@ -54,8 +54,7 @@ exports.userSignin = (req,res,next) =>{
 // });
 
 exports.logout = (function(req, res) {
-
-  BlacklistData.create({token:req.headers.authorization}, function(err, data) {
+ BlacklistData.create({token:req.headers.authorization}, function(err, data) {
    if (err)
      res.send(err);
      res.json(data); 
