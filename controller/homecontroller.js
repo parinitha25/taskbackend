@@ -1,12 +1,12 @@
-const User = require('../model/signup');
+// const User = require('../model/signup');
 const Eventuser=require('../model/home');
 
-exports.getuser=(req, res)=> {
-  User.find({}, (error, data) => {
-      if (error) { res.json(error) }
-      res.json(data)
-  })
-  }
+// exports.getuser=(req, res)=> {
+//   User.find({}, (error, data) => {
+//       if (error) { res.json(error) }
+//       res.json(data)
+//   })
+//   }
 
   exports.eventlist =(req, res) =>{
     var User=new Eventuser(req.body);
@@ -33,3 +33,21 @@ exports.getuser=(req, res)=> {
           res.json(data)
       })
   }
+  //delete
+  exports.deleteeventlist = (req,res)=>{ 
+    console.log("delete")
+    // const  token =req.headers.authorization
+    Eventuser.deleteOne({_id: req.params.id }, (error, data) => {
+      if (error) 
+      { 
+        res.json(error) 
+      }
+      else{
+        return res.status(200).json({
+          messagedelete:'sucessfully deleted'
+        })
+      }
+    })
+  
+  }
+

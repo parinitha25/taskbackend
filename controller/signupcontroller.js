@@ -1,6 +1,5 @@
-
 const UserData = require('../model/signup');
-const Eventuser=require('../model/home');
+
 
 debugger
 exports.signup=function(req,res){
@@ -13,6 +12,7 @@ exports.signup=function(req,res){
     })
 }
 exports.getallsignin = function(req, res) {
+    console.log('signin')
     UserData.find({}, function(err, data) {
       if (err)
         res.send(err);

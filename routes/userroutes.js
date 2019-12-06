@@ -16,7 +16,7 @@ router.post('/signup',signupController.signup);
 
 router.post('/signin',signinController.userSignin);
 
-router.get('/getuserall', validate,homecontroller.getuser );
+router.get('/getuserall', validate,signupController.getallsignin );
 
 router.get('/getuserlogout', validate, RevokedCallback);
 
@@ -24,11 +24,13 @@ router.get('/validateuser',validate,signinController.validateuser);
 
 router.delete('/logout', signinController.logout);
 
-router.post('/posteventlist',validate,homecontroller.eventlist);
+router.post('/posteventlist',homecontroller.eventlist);
 
 router.get('/geteventlists',validate,homecontroller.geteventuesr);
 
-router.get('/updateeventlists',validate,homecontroller.updateeventlist);
+router.put('/updateeventlist/:id',validate,homecontroller.updateeventlist);
+
+router.delete('/deleteeventlist/:id',homecontroller.deleteeventlist);
 
 
 module.exports=router;

@@ -42,7 +42,7 @@ const RevokedCallback = function (req, res) {
       });
     } 
     else {
-      return res.status(401).json({
+      return res.status(404).json({
         errorl:'User logged out sucessfully'
       }); 
      

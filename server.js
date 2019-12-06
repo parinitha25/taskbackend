@@ -29,6 +29,8 @@ mongoose.connect('mongodb://localhost/Users');
 // db connection
 app.set('port', (process.env.port || 8000));
 
+mongoose.set('useFindAndModify', false);
+
 app.listen(app.get('port'), function(){
     console.log("server started on port" + app.get('port'));
 })
