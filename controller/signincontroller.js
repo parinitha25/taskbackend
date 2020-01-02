@@ -1,9 +1,6 @@
-
 const UserData = require('../model/signup');
 var jwt=require('jsonwebtoken');
-var isAuth=require('../Midleware/isAuth');
 var bcrypt = require('bcrypt');
-var Response = require('../response');
 const BlacklistData = require('../model/blacklist');
 
 exports.userSignin = (req,res,next) =>{
@@ -43,53 +40,41 @@ exports.userSignin = (req,res,next) =>{
   }); 
 }
 
-// exports.getAllSignin = (isAuth,function(req, res) {
-//   console.log("hello  signin")
-//   debugger
-//   UserData.find({token:req.headers.authorization}, function(err, data) {
-//    if (err)
-//      res.send(err);
-//      res.json(data); 
-//   });
-// });
-
-exports.logout = (function(req, res) {
- BlacklistData.create({token:req.headers.authorization}, function(err, data) {
-   if (err)
-     res.send(err);
-     res.json(data); 
+  exports.logout = (function(req, res) {
+    BlacklistData.create({token:req.headers.authorization}, function(err, data) {
+      if (err)
+        res.send(err);
+        res.json(data); 
+      });
   });
-});
 
-
-  debugger
-  exports.validateuser =(function(req, res)  {
-  const  token =req.headers.authorization
-  BlacklistData.find({token},function(err,data){
-    if (data.length>0) {
-      return res.status(401).json({   
-        error: 'your not able to access this page'
-      })
-    }
-    else{
-      return res.status(200).json({
-        message:'login sucessfully'
-      })
-    }
-  })
+  exports.validateuser =(function(req, res){
+    const  token =req.headers.authorization
+    BlacklistData.find({token},function(err,data){
+      if (data.length>0) {
+        return res.status(401).json({   
+          error: 'your not able to access this page'
+        })
+      }
+      else{
+        return res.status(200).json({
+          message:'login sucessfully'
+        })
+      }
+    })
     const tokens = token;
-  let decodedToken;
-  try {
-    decodedToken = jwt.verify(tokens, 'secret');
-  } catch (err) {
-    err.statusCode = 500;
-    throw err;
-  }
-  if (!decodedToken) {
-    const error = new Error('Not authenticated.');
-    error.statusCode = 401;
-    throw error;
-  }
-  req.userId = decodedToken.userId;
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(tokens, 'secret');
+    } catch (err) {
+      err.statusCode = 500;
+      throw err;
+    }
+    if (!decodedToken) {
+      const error = new Error('Not authenticated.');
+      error.statusCode = 401;
+      throw error;
+    }
+    req.userId = decodedToken.userId;
   })
 

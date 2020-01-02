@@ -1,7 +1,5 @@
 const Jwt = require('jsonwebtoken');
 const BlacklistData = require('../model/blacklist');
-var mongoose = require('mongoose');
-
 
 const validate = function (req, res, next) {
   const authHeader = req.get('Authorization');
@@ -24,12 +22,10 @@ const validate = function (req, res, next) {
     throw error;
   }
   req.userId = decodedToken.userId;
-
   next();
 }
 
 const RevokedCallback = function (req, res) {
-  debugger
   BlacklistData.find({ token: req.headers.authorization }, function (err, data) {
     if (!data) {
       return res.status(200).json({ 

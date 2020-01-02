@@ -16,7 +16,7 @@ router.post('/signup',signupController.signup);
 
 router.post('/signin',signinController.userSignin);
 
-router.get('/getuserall', validate,signupController.getallsignin );
+router.get('/getalluser', validate,signupController.getallsignin);
 
 router.get('/getuserlogout', validate, RevokedCallback);
 
@@ -26,7 +26,7 @@ router.delete('/logout', signinController.logout);
 
 router.post('/posteventlist',homecontroller.eventlist);
 
-router.get('/geteventlists',validate,homecontroller.geteventuesr);
+router.get('/geteventlist',validate,homecontroller.geteventuesr);
 
 router.put('/updateeventlist/:id',validate,homecontroller.updateeventlist);
 

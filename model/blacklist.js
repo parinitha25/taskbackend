@@ -2,13 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var BlacklistSchema = new Schema({
-    
     token: {
         type: String
     },
-    tokenCreated: {
+    tokereated: {
         type: Date, 
-        default: Date.now
+        default: Date.now()
     }
 });
 
