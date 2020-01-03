@@ -12,7 +12,8 @@ const validate = function (req, res, next) {
   let decodedToken;
   try {
     decodedToken = Jwt.verify(token, 'secret');
-  } catch (err) {
+  } 
+  catch (err) {
     err.statusCode = 500;
     throw err;
   }
@@ -40,10 +41,8 @@ const RevokedCallback = function (req, res) {
     else {
       return res.status(404).json({
         errorl:'User logged out sucessfully'
-      }); 
-     
+      });   
     }
  })
-
 }
 module.exports = { validate, RevokedCallback };

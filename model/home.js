@@ -6,7 +6,8 @@ var EventlistSchema = new Schema({
         type: String
     },
     date:{
-        type:Date
+        type:Date,
+        default: Date.now()
     },
     time:{
         type:String

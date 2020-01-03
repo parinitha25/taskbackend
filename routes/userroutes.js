@@ -8,7 +8,6 @@ const signinController = require('../controller/signincontroller');
 
 const homecontroller = require('../controller/homecontroller');
 
-
 var { validate, RevokedCallback }=require('../Midleware/isAuth')
 
 
@@ -18,11 +17,11 @@ router.post('/signin',signinController.userSignin);
 
 router.get('/getalluser', validate,signupController.getallsignin);
 
-router.get('/getuserlogout', validate, RevokedCallback);
+router.post('/userlogout', validate, RevokedCallback);
 
 router.get('/validateuser',validate,signinController.validateuser);
 
-router.delete('/logout', signinController.logout);
+router.delete('/logout', homecontroller.logout);
 
 router.post('/posteventlist',homecontroller.eventlist);
 
