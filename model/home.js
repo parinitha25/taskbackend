@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
 var EventlistSchema = new Schema({    
     name: {
         type: String
@@ -10,7 +11,8 @@ var EventlistSchema = new Schema({
         default: Date.now()
     },
     time:{
-        type:String
+        type:Date,
+        default: Date.now()
     },
     place: {
         type: String

@@ -1,6 +1,7 @@
 const Eventuser=require('../model/home');
 const BlacklistData = require('../model/blacklist');
 
+
     exports.eventlist =(req, res) =>{
       var User=new Eventuser(req.body);
       User.save(function(err, data) {
