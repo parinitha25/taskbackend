@@ -41,7 +41,7 @@ const BlacklistData = require('../model/blacklist');
         }
         else{
           return res.status(200).json({
-            messagedelete:'sucessfully deleted'
+            messagedelete:'"Sucessfully Deleted"'
           })
         }
       }) 
