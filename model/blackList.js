@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var schema = mongoose.Schema;
 
-var BlacklistSchema = new Schema({
+var blacklistSchema = new schema({
     token: {
         type: String
     },
@@ -11,4 +11,4 @@ var BlacklistSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('blacklistinfo', BlacklistSchema);
+module.exports = mongoose.model('blacklist', blacklistSchema);

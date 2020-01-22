@@ -1,6 +1,7 @@
 var express = require('express')
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+const dbConnect = require('./model/index');
 const cors = require('cors');
 const userRoutes=require('./routes/userroutes');
 
@@ -13,17 +14,19 @@ app.options('*', cors());
 
 app.use('/',userRoutes);
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/Users');
+dbConnect.on('connected', () => {
+console.log('db connected at:',)
 
-// db connection
+
 app.set('port', (process.env.port || 8000));
+
+const server = app.listen(app.get('port'), function(){
+    console.log("server started on port" + app.get('port'));
+});
+});
 
 mongoose.set('useFindAndModify', false);
 
-app.listen(app.get('port'), function(){
-    console.log("server started on port" + app.get('port'));
-})
 
 
 

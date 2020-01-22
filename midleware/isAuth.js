@@ -1,5 +1,5 @@
 const Jwt = require('jsonwebtoken');
-const BlacklistData = require('../model/blacklist');
+const blacklistdata = require('../model/blackList');
 
 const validate = function (req, res, next) {
   const authHeader = req.get('Authorization');
@@ -26,23 +26,24 @@ const validate = function (req, res, next) {
   next();
 }
 
-const RevokedCallback = function (req, res) {
-  BlacklistData.find({ token: req.headers.authorization }, function (err, data) {
+const revokedCallback = function (req, res) {
+  blacklistdata.find({ token: req.headers.authorization }, function (err, data) {
     if (!data) {
       return res.status(200).json({ 
-        messagel: 'User logged in sucessfully'  
+        message: 'User logged in sucessfully'  
       })
     }
     else if(data.length>0) {
       return res.status(401).json({
-        errorl: 'User logged out already'
+        error: 'User logged out already'
       });
     } 
     else {
-      return res.status(404).json({
-        errorl:'User logged out sucessfully'
+      return res.status(401).json({
+        error:'User logged out sucessfully'
       });   
     }
  })
 }
-module.exports = { validate, RevokedCallback };
+
+module.exports = { validate, revokedCallback };

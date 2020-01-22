@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var schema = mongoose.Schema;
 
-
-var EventlistSchema = new Schema({    
+var eventschema = new schema({    
     name: {
         type: String
     },
@@ -19,4 +18,4 @@ var EventlistSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('eventlistinfo', EventlistSchema);
+module.exports = mongoose.model('events', eventschema);

@@ -1,9 +1,8 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt');
-var SALT_WORK_FACTOR = 10;
+var schema = mongoose.Schema;
+var uniqueValidator = require('mongoose-unique-validator')
 
-var UserSchema = new Schema({
+var userschema = new schema({
   username:{
     type:String,
     validate: {
@@ -16,13 +15,14 @@ var UserSchema = new Schema({
     },
   email: {
     type: String,
+    unique: true,
     validate: {
         validator: function(v) {
           return /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(v);
         },
         message: props => `${props.value} is not a valid email!`
       },
-      required: [true, 'User email required']
+      required: [true, 'User email required'], 
     },
   password: {
     type: String,
@@ -48,26 +48,10 @@ var UserSchema = new Schema({
     type: String,
     enum: ['male','female','others']
   },
+  role:{
+    type: String,
+    default: 'user'
+  }
 });
-
-UserSchema.pre('save', function(next) {
-  var user = this;
-  if (!user.isModified('password')) return next();
-  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-      if (err) return next(err);
-      bcrypt.hash(user.password, salt, function(err, hash) {
-          if (err) return next(err);
-          user.password = hash;
-          next();
-      });
-  });
-});
-
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-      if (err) return cb(err);
-      cb(null, isMatch);
-  });
-};
-
-module.exports = mongoose.model('UserInfo', UserSchema);
+userschema.plugin(uniqueValidator)
+module.exports = mongoose.model('user', userschema);

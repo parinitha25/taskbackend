@@ -2,34 +2,37 @@ const express = require ('express')
 
 const router = express.Router();
  
-const signupController = require('../controller/signupcontroller');
+const signup = require('../controller/signup');
 
-const signinController = require('../controller/signincontroller');
+const signin = require('../controller/signin');
 
-const homecontroller = require('../controller/homecontroller');
+const events = require('../controller/events');
 
-var { validate, RevokedCallback }=require('../Midleware/isAuth')
+// const user = require('../seeder/user');
 
+var { validate, revokedCallback }=require('../midleware/isAuth')
 
-router.post('/signup',signupController.signup);
+router.post('/signup',signup.register);
 
-router.post('/signin',signinController.userSignin);
+router.post('/signin',signin.userSignin);
 
-router.get('/getalluser', validate,signupController.getallsignin);
+// router.post('/user',user.UsersSeeder);
 
-router.post('/userlogout', validate, RevokedCallback);
+router.get('/getalluser', validate,signup.getallregister);
 
-router.get('/validateuser',validate,signinController.validateuser);
+router.post('/userlogout', validate, revokedCallback);
 
-router.delete('/logout', homecontroller.logout);
+router.get('/validateuser',validate,signin.uservalidate);
 
-router.post('/posteventlist',homecontroller.eventlist);
+router.delete('/logout', events.logout);
 
-router.get('/geteventlist',validate,homecontroller.geteventuesr);
+router.post('/posteventlist',events.userlist);
 
-router.put('/updateeventlist/:id',validate,homecontroller.updateeventlist);
+router.get('/geteventlist',validate,events.geteventuesr);
 
-router.delete('/deleteeventlist/:id',homecontroller.deleteeventlist);
+router.put('/updateeventlist/:id',validate,events.updateeventlist);
+
+router.delete('/deleteeventlist/:id',events.deleteeventlist);
 
 
 module.exports=router;
