@@ -8,15 +8,11 @@ const signin = require('../controller/signin');
 
 const events = require('../controller/events');
 
-// const user = require('../seeder/user');
-
 var { validate, revokedCallback }=require('../midleware/isAuth')
 
 router.post('/signup',signup.register);
 
 router.post('/signin',signin.userSignin);
-
-// router.post('/user',user.UsersSeeder);
 
 router.get('/getalluser', validate,signup.getallregister);
 
@@ -28,7 +24,7 @@ router.delete('/logout', events.logout);
 
 router.post('/posteventlist',events.userlist);
 
-router.get('/geteventlist',validate,events.geteventuesr);
+router.get('/geteventlist',validate,events.geteventuser);
 
 router.put('/updateeventlist/:id',validate,events.updateeventlist);
 

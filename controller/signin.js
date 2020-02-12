@@ -14,7 +14,6 @@ exports.userSignin = (req,res) =>{
           });
         }
         else if(password!=user.password){
-          debugger
           res.status(422).json({
           error:'password is not matched.'
         })

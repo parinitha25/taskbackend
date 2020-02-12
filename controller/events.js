@@ -15,8 +15,8 @@ const blacklistdata = require('../model/blackList');
       });
     };
 
-    exports.geteventuesr=(req, res)=> {
-      eventuser.find({}, (err, data) => {
+    exports.geteventuser=(req, res)=> {
+      eventuser.find({}, (err, data) => { 
         if(err){
           res.status(422).send(err)
         }
@@ -25,6 +25,7 @@ const blacklistdata = require('../model/blackList');
         }  
       })
     }
+
     /*------logout functionality-----*/
     exports.logout = (function(req, res) {
       blacklistdata.create({token:req.headers.authorization}, function(err, data) {
