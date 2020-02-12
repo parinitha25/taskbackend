@@ -1,48 +1,46 @@
-const UserData = require('../model/signup');
+const userdata = require('../model/user');
 var jwt=require('jsonwebtoken');
-var bcrypt = require('bcrypt');
-const BlacklistData = require('../model/blacklist');
+const blacklistdata = require('../model/blackList');
 
-  exports.userSignin = (req,res,next) =>{
+exports.userSignin = (req,res) =>{
     const email = req.body.email;
     const password = req.body.password;
     let loadedUser;
-      UserData.findOne({email: email})
+      userdata.findOne({email:email})
       .then(user =>{
         if(!user){
-            res.status(401).json({
+              res.status(401).json({
               error:'User does not matched with this Email'
           });
         }
-        loadedUser = user;
-        return bcrypt.compare(password,user.password);
-      })
-      .then(isEqual =>{
-        if(!isEqual){
-          res.status(401).json({
-            error:'password is not matched.'
-          });
+        else if(password!=user.password){
+          res.status(422).json({
+          error:'password is not matched.'
+        })
         }
+        else{
+        loadedUser = user;
         const token = jwt.sign(
         {
           email: loadedUser.email,
+          role:loadedUser.role,
           userId:loadedUser._id.toString(),
         },'secret',{expiresIn: '2h'})
-        return res.status(200).json({token: token, userId: loadedUser._id.toString(), email: loadedUser.email 
-          ,message:'login sucessfully.'
+        return res.status(200).json({token: token, userId: loadedUser._id.toString(), email: loadedUser.email,
+          role:loadedUser.role ,message:'login sucessfully.'
         })  
+        }
       })
       .catch(err => {
         if (!err.statusCode) {
-          err.statusCode = 500;
+          err.statusCode = 422;
         } 
-          next(err);
       }); 
-  }
+    }
 
-  exports.validateuser =(function(req, res){
+  exports.uservalidate =(function(req, res){
     const  token =req.headers.authorization
-    BlacklistData.find({token},function(err,data){
+    blacklistdata.find({token},function(err,data){
       if (data.length>0) {
         return res.status(401).json({   
           error: 'your not able to access this page'
@@ -60,7 +58,7 @@ const BlacklistData = require('../model/blacklist');
         decodedToken = jwt.verify(tokens, 'secret');
       } 
       catch (err) {
-        err.statusCode = 500;
+        err.statusCode = 422;
         throw err;
       }
       if (!decodedToken) {
