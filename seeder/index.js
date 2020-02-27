@@ -1,5 +1,5 @@
 
-const seed=require('../seeder/user')
+const seed=require('../seeder/admin')
 
 const index=require('../model/index')
 

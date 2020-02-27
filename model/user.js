@@ -51,7 +51,23 @@ var userschema = new schema({
   role:{
     type: String,
     default: 'user'
-  }
+  },
+  events:[{
+    name: {
+        type: String
+    },
+    date:{
+        type:Date,
+        default: Date.now()
+    },
+    time:{
+        type:Date,
+        default: Date.now()
+    },
+    place: {
+        type: String
+    },
+}]
 });
 userschema.plugin(uniqueValidator)
-module.exports = mongoose.model('user', userschema);
+module.exports = mongoose.model('User', userschema);

@@ -1,4 +1,4 @@
-const userdata = require('../model/user');
+const userData = require('../model/user');
 var jwt=require('jsonwebtoken');
 const blacklistdata = require('../model/blackList');
 
@@ -6,7 +6,7 @@ exports.userSignin = (req,res) =>{
     const email = req.body.email;
     const password = req.body.password;
     let loadedUser;
-      userdata.findOne({email:email})
+      userData.findOne({email:email})
       .then(user =>{
         if(!user){
               res.status(401).json({

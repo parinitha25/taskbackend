@@ -6,6 +6,8 @@ const signup = require('../controller/signup');
 
 const signin = require('../controller/signin');
 
+const user= require('../controller/user');
+
 const events = require('../controller/events');
 
 var { validate, revokedCallback }=require('../midleware/isAuth')
@@ -14,21 +16,18 @@ router.post('/signup',signup.register);
 
 router.post('/signin',signin.userSignin);
 
-router.get('/getalluser', validate,signup.getallregister);
-
 router.post('/userlogout', validate, revokedCallback);
 
 router.get('/validateuser',validate,signin.uservalidate);
 
-router.delete('/logout', events.logout);
+router.delete('/logout', user.logout);
 
-router.post('/posteventlist',events.userlist);
+router.post('/postevent/:id',validate,user.postevent);
 
-router.get('/geteventlist',validate,events.geteventuser);
+router.get('/getevents',validate,user.getallevents);
 
-router.put('/updateeventlist/:id',validate,events.updateeventlist);
+router.put('/updateevent/:id',events.updateevent);
 
-router.delete('/deleteeventlist/:id',events.deleteeventlist);
-
+router.delete('/deleteevent/:id/:id1',validate,events.deleteevent);
 
 module.exports=router;

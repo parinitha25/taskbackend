@@ -1,68 +1,33 @@
-const eventuser=require('../model/event');
-const blacklistdata = require('../model/blackList');
+const UserData = require('../model/user');
 
-    exports.userlist=(req, res) =>{
-      var user=new eventuser(req.body);
-      user.save(function(err,data) {
+ 
+  /*-----------update------*/
+  exports.updateevent=(req, res)=>{
+    debugger
+    const { id } = req.params;
+    const { name,place} = req.body;
+    UserData.update({'events._id': id},{ $set: {"events.$": { _id:id, name,place}}},{new:true}, (err, data) => {
         if(err){
           res.status(422).send(err)
         }
         else{
-            return res.status(200).json({
-            message:"new user created sucessfully"
-          })
-        }   
-      });
-    };
-
-    exports.geteventuser=(req, res)=> {
-      eventuser.find({}, (err, data) => { 
-        if(err){
-          res.status(422).send(err)
-        }
-        else{
-          res.status(200).json(data);     
-        }  
-      })
-    }
-
-    /*------logout functionality-----*/
-    exports.logout = (function(req, res) {
-      blacklistdata.create({token:req.headers.authorization}, function(err, data) {
-        if(err){
-          res.status(422).send(err)
-        } 
-        else{
-          res.status(200).json(data);
-        }   
-      });
-    });
-    /*-----------update------*/
-    exports.updateeventlist=(req, res)=>{
-      eventuser.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, data) => {
-        if(err){
-          res.status(422).send(err)
-        }
-        else{
-            return res.status(200).json({
-            data,
-            message:"user data updated sucessfully"
+          res.status(200).json({
+            data
           })
         }  
-      })
-    }
+    })
+  }
     /*--------delete------*/
-    exports.deleteeventlist = (req,res)=>{ 
-      eventuser.deleteOne({_id: req.params.id }, (error, data) => {
-        if (error) 
-        { 
-          res.status(422).send(err) 
-        }
-        else{
-            return res.status(200).json({
-            message:'user list deleted sucessfully'
-          })
-        }
-      }) 
-    }
-
+  exports.deleteevent = (req,res)=>{
+    const { id, id1 } = req.params;
+    UserData.updateOne( {'_id': id},{ $pull: { "events" : { _id: id1} } } ,(err, data) => {
+      if(err){
+          res.status(422).send(err)
+      }
+      else{
+        return res.status(200).json({
+        message:'user list deleted sucessfully'
+        })  
+      }
+    })  
+  }
