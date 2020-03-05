@@ -1,12 +1,13 @@
 
 const User = require('../model/user');
 
+
 const data =
   { 
-    username : "admin",
-    email:"admin2@gmail.com",
-    password: 'Admin@12',
-    gender:"male",
+    username : "parinitha",
+    email:"pnarayanaostb1@gmail.com",
+    password: 'Pari@253',
+    gender:"female",
     phone:"123-333-3333",
     role:'Admin'
   }
@@ -25,4 +26,6 @@ const UserSeeder = () => {
 }
 
 UserSeeder()
+
+
   

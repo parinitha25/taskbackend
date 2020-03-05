@@ -1,12 +1,10 @@
 const UserData = require('../model/user');
 
- 
   /*-----------update------*/
   exports.updateevent=(req, res)=>{
-    debugger
     const { id } = req.params;
     const { name,place} = req.body;
-    UserData.update({'events._id': id},{ $set: {"events.$": { _id:id, name,place}}},{new:true}, (err, data) => {
+    UserData.updateOne({'events._id': id},{ $set: {"events.$": { _id:id, name,place}}},{new:true}, (err, data) => {
         if(err){
           res.status(422).send(err)
         }
@@ -31,3 +29,6 @@ const UserData = require('../model/user');
       }
     })  
   }
+
+
+ 

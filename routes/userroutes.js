@@ -30,4 +30,8 @@ router.put('/updateevent/:id',events.updateevent);
 
 router.delete('/deleteevent/:id/:id1',validate,events.deleteevent);
 
+router.post('/postusermail',signup.invitinguser);
+
+router.get('/getusermail',signup.getalluserinvitation);
+
 module.exports=router;

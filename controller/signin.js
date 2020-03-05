@@ -6,7 +6,7 @@ exports.userSignin = (req,res) =>{
     const email = req.body.email;
     const password = req.body.password;
     let loadedUser;
-      userData.findOne({email:email})
+    userData.findOne({email:email})
       .then(user =>{
         if(!user){
               res.status(401).json({
