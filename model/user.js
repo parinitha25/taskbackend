@@ -49,23 +49,25 @@ var userschema = new schema({
   },
   role:{
     type: String,
-    default: 'user'
+    default: 'basic',
+    enum: ["basic", "user", "admin"]
   },
-  events:[{
-    name: {
-        type: String
-    },
-    date:{
-        type:Date,
-        default: Date.now()
-    },
-    time:{
-        type:Date,
-        default: Date.now()
-    },
-    place: {
-        type: String
-    },
-}]
+//   events:[{
+//     name: {
+//         type: String
+//     },
+//     date:{
+//         type:Date,
+//         default: Date.now()
+//     },
+//     time:{
+//         type:Date,
+//         default: Date.now()
+//     },
+//     place: {
+//         type: String
+//     },
+// }],
+
 });
 module.exports = mongoose.model('User', userschema);

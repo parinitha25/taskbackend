@@ -9,7 +9,7 @@ const data =
     password: 'Pari@253',
     gender:"female",
     phone:"123-333-3333",
-    role:'Admin'
+    role:'admin'
   }
       
 const UserSeeder = () => { 
@@ -28,4 +28,4 @@ const UserSeeder = () => {
 UserSeeder()
 
 
-  
+   // "test": "echo \"Error: no test specified\" && exit 1",

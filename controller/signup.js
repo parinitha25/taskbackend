@@ -3,19 +3,36 @@ const Usermail = require('../model/invitation');
 const nodemailer = require ('nodemailer');
 
 exports.register=function(req,res){
-    var User=new userData(req.body);
-    console.log(req.body)
+  const { email, password, role,username,phone,gender } = req.body
+  const User = new userData({ email, password,username,phone,gender,role: role || "basic" });
     User.save(function(err,data){
         if(err){
             res.status(422).send(err)
         }
         else{
-            res.status(200).json(data);
-        } 
+          return res.status(200).json({
+            message:'login sucessfully'
+          })
+        }
     })
 }
 
+
+exports.getallregister=function(req,res){
+  userData.find({}, (err, data) => { 
+    if(err){
+      res.status(422).send(err)
+    }
+    else{
+      res.status(200).json(data);     
+    }  
+  })
+}
+
+
+
 exports.invitinguser= function(req, res){
+  debugger
     const reg_email=/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
       if(reg_email.test(req.body.email)){
         var Requestuser = new Usermail(req.body);

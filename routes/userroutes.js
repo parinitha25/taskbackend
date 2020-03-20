@@ -14,6 +14,8 @@ var { validate, revokedCallback }=require('../midleware/isAuth')
 
 router.post('/signup',signup.register);
 
+router.get('/signupall',signup.getallregister);
+
 router.post('/signin',signin.userSignin);
 
 router.post('/userlogout', validate, revokedCallback);
@@ -25,6 +27,8 @@ router.delete('/logout', user.logout);
 router.post('/postevent/:id',validate,user.postevent);
 
 router.get('/getevents',validate,user.getallevents);
+
+router.get('/geteventss',validate,user.getallevent);
 
 router.put('/updateevent/:id',events.updateevent);
 

@@ -26,15 +26,35 @@ const blacklistdata = require('../model/blackList');
         }  
       })
   }
-
-  exports.getallevents=function(req,res){
-    userData.find({}, (err, data) => { 
-      if(err){
-        res.status(422).send(err)
-      }
-      else{
-        res.status(200).json(data);     
-      }  
-    })
+  
+  exports.getallevents=function(req,res){ 
+    debugger
+    var pageNo = parseInt(req.query.pageNo)
+    var query = {}
+    userData.aggregate([
+      { $match: query },
+      { $facet: {
+        metadata: [{ $count: 'total' }, { $addFields: { pageNo } }],
+        list: [{ $skip: (pageNo - 1) * 1 }, { $limit:1}]
+      }},
+    ], function (err, data) {
+        if(err){
+                res.status(422).send(err)
+              }
+        else{
+              res.status(200).json(data);     
+        }  
+    });
   }
-      
+
+
+exports.getallevent=function(req,res){
+  userData.find({}, (err, data) => { 
+    if(err){
+      res.status(422).send(err)
+    }
+    else{
+      res.status(200).json(data);     
+    }  
+  })
+}

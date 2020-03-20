@@ -14,20 +14,17 @@ app.options('*', cors());
 
 app.use('/',userRoutes);
 
-dbConnect.on('connected', () => {
-console.log('db connected at:',)
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/Users');
 
-
+// db connection
 app.set('port', (process.env.port || 8000));
-
-const server = app.listen(app.get('port'), function(){
-    console.log("server started on port" + app.get('port'));
-});
-});
 
 mongoose.set('useFindAndModify', false);
 
+// app.listen(app.get('port'), function(){
+//     console.log("server started on port" + app.get('port'));
+// })
 
+module.exports = app
 
-
- 

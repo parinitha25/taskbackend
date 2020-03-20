@@ -12,6 +12,11 @@ var inviteSchema = new schema({
       },
       required: [true, 'User email required'], 
     },
+    role:{
+      type:String,
+      default: 'basic',
+      enum: ["basic", "user", "admin"]
+    }
  
 });
 
