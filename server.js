@@ -1,30 +1,29 @@
 var express = require('express')
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-const dbConnect = require('./model/index');
 const cors = require('cors');
-const userRoutes=require('./routes/userroutes');
+const userRoutes = require('./routes/userroutes');
 
 var app = express();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cors());
 app.options('*', cors());
 
-app.use('/',userRoutes);
+app.use('/', userRoutes);
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/Users');
 
-// db connection
 app.set('port', (process.env.port || 8000));
 
-mongoose.set('useFindAndModify', false);
+const server = app.listen(app.get('port'), function () {
+    console.log("server started on port" + app.get('port'));
+});
 
-// app.listen(app.get('port'), function(){
-//     console.log("server started on port" + app.get('port'));
-// })
+mongoose.set('useFindAndModify', false);
 
 module.exports = app
 
